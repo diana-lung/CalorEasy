@@ -1,0 +1,12 @@
+{
+  "name": "CalorEasy",
+  "displayName": "CalorEasy",
+  "expo": {
+    "name": "CalorEasy",
+    "slug": "CalorEasy",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
