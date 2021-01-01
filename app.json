@@ -5,6 +5,11 @@
     "name": "CalorEasy",
     "slug": "CalorEasy",
     "version": "1.0.0",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#fef8f3"
+    },
     "assetBundlePatterns": [
       "**/*"
     ]
