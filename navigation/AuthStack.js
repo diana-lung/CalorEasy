@@ -1,29 +1,35 @@
 import useCachedResources from "../hooks/useCachedResources";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import OnboardingScreen from "../screens/OnboardingScreen";
 import LoginScreen from "../screens/LoginScreen";
 import {createStackNavigator} from "@react-navigation/stack";
 import SignupScreen from "../screens/SignupScreen";
 import AsyncStorage from '@react-native-community/async-storage';
+import { GoogleSignin } from '@react-native-community/google-signin';
 
 const AppStack = createStackNavigator();
 
 const AuthStack = () => {
     const isLoadingComplete = useCachedResources();
     let routeName;
+    const [isFirstLaunch, setIsFirstLaunch] = useState(null);
 
     // make sure the onboarding screen is shown only when the application is launched for the first time
-    const [isFirstLaunch, setIsFirstLaunch] = React.useState(true);
+
     useEffect(() => {
-        AsyncStorage.getItem('alreadyLaunched').then(value => {
+        AsyncStorage.getItem('alreadyLaunched').then((value) => {
             if (value == null) {
-                AsyncStorage.setItem('alreadyLaunched', "true");
+                AsyncStorage.setItem('alreadyLaunched', 'true'); // No need to wait for `setItem` to finish, although you might want to handle errors
                 setIsFirstLaunch(true);
             } else {
-                setIsFirstLaunch(true);
-                // setIsFirstLaunch(true) // comment this and uncomment the previous line in order to see the onboarding screen just once
+                setIsFirstLaunch(false);
             }
         });
+
+        GoogleSignin.configure({
+            webClientId: '816469252822-5dkfhphh7ulm3kulrd3b0bi94642hqg6.apps.googleusercontent.com',
+        });
+
     }, []);
 
     if (!isLoadingComplete) {
