@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, Platform, StyleSheet, Alert} from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
@@ -7,8 +7,13 @@ import {ScrollView} from "react-native-gesture-handler";
 import {windowHeight, windowWidth} from "../utils/Dimensions";
 import {AuthContext} from '../navigation/AuthProvider';
 import * as Animatable from "react-native-animatable";
+import {hideNavigationBar} from "react-native-navigation-bar-color";
 
 const SignupScreen = ({navigation}) => {
+    useEffect(() => {
+        hideNavigationBar();
+    }, []);
+
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
