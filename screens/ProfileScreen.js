@@ -5,9 +5,6 @@ import {hideNavigationBar} from "react-native-navigation-bar-color";
 import {Avatar, Title, Caption, Text, TouchableRipple} from "react-native-paper";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {bmiType, calculateBMI, calculateDailyCalories} from "../utils/Formulas";
-import SupportScreen from "./SupportScreen";
-// import { mdiAccount } from '@mdi/js'
-// import Icon from '@mdi/react'
 
 
 const ProfileScreen = ({navigation}) => {
@@ -20,7 +17,6 @@ const ProfileScreen = ({navigation}) => {
     height = 170;
     weight = 60;
     age = 20;
-    dailyCalorie = 1.182;
     name = 'Diana Lung';
     gender = 'woman';
 
@@ -159,6 +155,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 1,
         flexDirection: 'row',
         height: 100,
+        backgroundColor: "rgba(255,255,255,0.3)"
     },
     infoBox: {
         width: '50%',
