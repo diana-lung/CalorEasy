@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
     View,
     Text,
@@ -14,9 +14,13 @@ import SocialButton from "../components/SocialButton";
 import {windowHeight, windowWidth} from "../utils/Dimensions";
 import {AuthContext} from '../navigation/AuthProvider';
 import * as Animatable from 'react-native-animatable';
-
+import {hideNavigationBar} from "react-native-navigation-bar-color";
 
 const LoginScreen = ({navigation}) => {
+    useEffect(() => {
+        hideNavigationBar();
+    }, []);
+
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
@@ -34,7 +38,7 @@ const LoginScreen = ({navigation}) => {
     }
 
     const handleValidUser = (value) => {
-        if ((value.trim().length >= 4) && validateEmail(value)){
+        if ((value.trim().length >= 4) && validateEmail(value)) {
             setData({
                 ...data,
                 isValidUser: true
@@ -48,13 +52,13 @@ const LoginScreen = ({navigation}) => {
     }
 
     const validatePassword = (pw) => {
-        return /[A-Z]/       .test(pw) &&
-            /[a-z]/       .test(pw) &&
+        return /[A-Z]/.test(pw) &&
+            /[a-z]/.test(pw) &&
             /[^A-Za-z0-9]/.test(pw)
     }
 
     const handleValidPassword = (value) => {
-        if ((value.trim().length >= 6) && validatePassword(value)){
+        if ((value.trim().length >= 6) && validatePassword(value)) {
             setData({
                 ...data,
                 isValidPassword: true
@@ -74,8 +78,7 @@ const LoginScreen = ({navigation}) => {
                 isExistingErrors: false
             });
             login(email, password);
-        }
-        else {
+        } else {
             setData({
                 ...data,
                 isExistingErrors: true
@@ -88,9 +91,9 @@ const LoginScreen = ({navigation}) => {
             "Incorrect Data",
             'Make sure you have no input errors before proceeding further!',
             [
-                { text: 'OK', onPress: () => console.log('OK Pressed') }
+                {text: 'OK', onPress: () => console.log('OK Pressed')}
             ],
-            { cancelable: false }
+            {cancelable: false}
         );
         setData({
             ...data,
@@ -112,7 +115,8 @@ const LoginScreen = ({navigation}) => {
                 labelValue={email}
                 onChangeText={(userEmail) => {
                     setEmail(userEmail);
-                    handleValidUser(userEmail)}
+                    handleValidUser(userEmail)
+                }
                 }
                 placeholderText="Email"
                 iconType="user"
@@ -132,7 +136,8 @@ const LoginScreen = ({navigation}) => {
                 labelValue={password}
                 onChangeText={(userPassword) => {
                     setPassword(userPassword);
-                    handleValidPassword(userPassword)}
+                    handleValidPassword(userPassword)
+                }
                 }
                 placeholderText="Password"
                 iconType="lock"
@@ -140,7 +145,8 @@ const LoginScreen = ({navigation}) => {
             />
             {data.isValidPassword ? null :
                 <Animatable.View animation="fadeInLeft" duration={500} style={styles.errorMsgContainer}>
-                    <Text style={styles.errorMsg}>Invalid password! Should contain at least 6 characters, a special character and an uppercase letter.</Text>
+                    <Text style={styles.errorMsg}>Invalid password! Should contain at least 6 characters, a special
+                        character and an uppercase letter.</Text>
                 </Animatable.View>
             }
             <FormButton
@@ -152,7 +158,7 @@ const LoginScreen = ({navigation}) => {
                 style={styles.forgotButton}
                 onPress={() => navigation.navigate('Signup')}>
                 <Text style={styles.navButtonText}>
-                    Don't have an account?  <Text style={styles.navButtonTextBold}>Create here</Text>
+                    Don't have an account? <Text style={styles.navButtonTextBold}>Create here</Text>
                 </Text>
             </TouchableOpacity>
 
@@ -193,8 +199,8 @@ const styles = StyleSheet.create({
         height: windowHeight
     },
     logo: {
-        height: 150,
-        width: 150,
+        height: 200,
+        width: 200,
         resizeMode: 'cover',
     },
     text: {
@@ -223,7 +229,7 @@ const styles = StyleSheet.create({
     errorMsgContainer: {
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        width: windowWidth/1.12,
+        width: windowWidth / 1.12,
     },
     errorMsg: {
         color: '#de4d41',
@@ -231,6 +237,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: 'space-mono',
 
-    }
+    },
 });
 

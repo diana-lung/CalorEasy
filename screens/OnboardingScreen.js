@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, Image, View, Text} from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
+import {hideNavigationBar} from "react-native-navigation-bar-color";
+
+hideNavigationBar();
 
 const Dots = ({selected}) => {
     let backgroundColor;
@@ -10,7 +13,7 @@ const Dots = ({selected}) => {
     return (
         <View
             style={{
-                width:6,
+                width: 6,
                 height: 6,
                 marginHorizontal: 3,
                 backgroundColor
@@ -21,34 +24,37 @@ const Dots = ({selected}) => {
 
 const Skip = ({...props}) => (
     <TouchableOpacity
-        style={{marginHorizontal:17}}
+        style={{marginHorizontal: 17}}
         {...props}
     >
-        <Text style={{fontSize:16, color: '#fff'}}>Skip</Text>
+        <Text style={{fontSize: 16, color: '#fff'}}>Skip</Text>
     </TouchableOpacity>
 );
 
 const Next = ({...props}) => (
     <TouchableOpacity
-        style={{marginHorizontal:17}}
+        style={{marginHorizontal: 17}}
         {...props}
     >
-        <Text style={{fontSize:16, color: '#fff'}}>Next</Text>
+        <Text style={{fontSize: 16, color: '#fff'}}>Next</Text>
     </TouchableOpacity>
 );
 
 const Done = ({...props}) => (
     <TouchableOpacity
-        style={{marginHorizontal:17}}
+        style={{marginHorizontal: 17}}
         {...props}
     >
-        <Text style={{fontSize:16, color: '#fff'}}>Done</Text>
+        <Text style={{fontSize: 16, color: '#fff'}}>Done</Text>
     </TouchableOpacity>
 );
 
 
-
 const OnboardingScreen = ({navigation}) => {
+    useEffect(() => {
+        hideNavigationBar();
+    }, []);
+
     return (
         <Onboarding
             DotComponent={Dots}
@@ -57,10 +63,10 @@ const OnboardingScreen = ({navigation}) => {
             DoneButtonComponent={Done}
             titleStyles={{color: "#3f3d56", fontFamily: "Lato-Bold"}}
             subTitleStyles={{color: '#888', fontFamily: 'space-mono'}}
-            bottomBarColor = { "#8ec140"}
+            bottomBarColor={"#8ec140"}
 
-            onSkip={()=>navigation.replace('Login')}
-            onDone={()=>navigation.navigate('Login')}
+            onSkip={() => navigation.replace('Login')}
+            onDone={() => navigation.navigate('Login')}
             pages={[
                 {
                     backgroundColor: '#fff',

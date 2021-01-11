@@ -1,19 +1,49 @@
-import React, {useContext} from "react";
-import {Text, View, StyleSheet} from "react-native";
-import FormButton from "../components/FormButton";
+import React, {useContext, useEffect} from "react";
+import {Text, View, StyleSheet, StatusBar} from "react-native";
 import {AuthContext} from "../navigation/AuthProvider";
+import {hideNavigationBar} from "react-native-navigation-bar-color";
+import firestore from '@react-native-firebase/firestore';
+import SearchBar from "../components/SearchBar";
+import {ScrollView} from "react-native-gesture-handler";
 
 const HomeScreen = () => {
+    useEffect(() => {
+        hideNavigationBar();
+    }, []);
+
+    const cropName = (name) => {
+        return name.split(" ")[0];
+    }
+
+    let name = 'Diana Lung';
+
+    const db = firestore();
+
     const {user, logout} = useContext(AuthContext);
+    // const usersCollection = firestore().collection('Users').get();
+
+    const getUserData = async () => {
+        // try {
+        //     await db.collection('recipes')
+        //         .get()
+        //         .then((snapshot) => {
+        //             console.log(snapshot.docs);
+        //         })
+        // } catch (e) {
+        //     console.log(e);
+        // }
+        // console.log(usersCollection);
+
+    }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Welcome {user.uid}</Text>
-            <FormButton
-                buttonTitle="Logout"
-                onPress={() => logout()}
-            />
-        </View>
+        <ScrollView style={styles.container}>
+            <Text style={styles.title}>Hello, {cropName(name)}.</Text>
+            <Text style={styles.title}>What would you</Text>
+            <Text style={styles.title}>like to eat?</Text>
+
+            <SearchBar></SearchBar>
+        </ScrollView>
     );
 }
 
@@ -23,12 +53,14 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f9fafd',
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20
+        padding: 30
     },
-    text: {
-        fontSize: 20,
-        color: "#333333"
-    }
+    title: {
+        fontSize: 25,
+        color: "#333333",
+        fontFamily: 'Lato-Italic',
+        fontWeight: "bold",
+        lineHeight: 35,
+        letterSpacing: 2
+    },
 });

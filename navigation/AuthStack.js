@@ -22,7 +22,7 @@ const AuthStack = () => {
                 AsyncStorage.setItem('alreadyLaunched', 'true'); // No need to wait for `setItem` to finish, although you might want to handle errors
                 setIsFirstLaunch(true);
             } else {
-                setIsFirstLaunch(false);
+                setIsFirstLaunch(true);
             }
         });
 
@@ -52,9 +52,20 @@ const AuthStack = () => {
             />
             <AppStack.Screen name="Signup"
                              component={SignupScreen}
-                             options={{ title: 'SIGN UP',headerStyle: {
-                                     backgroundColor: '#8ec140'
-                                 } , headerTintColor: '#fff'}}
+                             options={{ title: 'Sign Up',
+                                 headerStyle: {
+                                     backgroundColor: '#8ec140',
+                                     height: 110,
+                                 },
+                                 headerTintColor: '#fff',
+                                 headerTitleStyle: {
+                                     paddingTop: 25,
+                                     fontSize: 22,
+                                 },
+                                 headerLeftContainerStyle:{
+                                     paddingTop: 30
+                                 }
+                             }}
             />
         </AppStack.Navigator>
     );
