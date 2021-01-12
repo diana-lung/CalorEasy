@@ -8,7 +8,6 @@ import {Avatar, RadioButton, IconButton} from "react-native-paper";
 import FormButton from "../components/FormButton";
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-import ImagePicker from 'react-native-image-crop-picker';
 
 
 const EditProfileScreen = () => {
@@ -33,29 +32,29 @@ const EditProfileScreen = () => {
     }
 
     const takePhotoFromCamera = () => {
-        ImagePicker.openCamera({
-            compressImageMaxWidth: 300,
-            compressImageMaxHeight: 300,
-            cropping: true,
-            compressImageQuality: 0.7
-        }).then(image => {
-            console.log(image);
-            setImage(image.path);
-            bs.current.snapTo(1);
-        });
+        // ImagePicker.openCamera({
+        //     compressImageMaxWidth: 300,
+        //     compressImageMaxHeight: 300,
+        //     cropping: true,
+        //     compressImageQuality: 0.7
+        // }).then(image => {
+        //     console.log(image);
+        //     setImage(image.path);
+        //     bs.current.snapTo(1);
+        // });
     }
 
     const choosePhotoFromLibrary = () => {
-        ImagePicker.openPicker({
-            width: 300,
-            height: 300,
-            cropping: true,
-            compressImageQuality: 0.7
-        }).then(image => {
-            console.log(image);
-            setImage(image.path);
-            bs.current.snapTo(1);
-        });
+        // ImagePicker.openPicker({
+        //     width: 300,
+        //     height: 300,
+        //     cropping: true,
+        //     compressImageQuality: 0.7
+        // }).then(image => {
+        //     console.log(image);
+        //     setImage(image.path);
+        //     bs.current.snapTo(1);
+        // });
     }
 
     const renderInner = () => (
