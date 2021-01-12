@@ -5,9 +5,6 @@ import {hideNavigationBar} from "react-native-navigation-bar-color";
 import {Avatar, Title, Caption, Text, TouchableRipple} from "react-native-paper";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {bmiType, calculateBMI, calculateDailyCalories} from "../utils/Formulas";
-import SupportScreen from "./SupportScreen";
-// import { mdiAccount } from '@mdi/js'
-// import Icon from '@mdi/react'
 
 
 const ProfileScreen = ({navigation}) => {
@@ -15,28 +12,23 @@ const ProfileScreen = ({navigation}) => {
         hideNavigationBar();
     }, []);
 
-    const {user, logout} = useContext(AuthContext);
-    let height, weight, age, dailyCalorie, name, gender;
-    height = 170;
-    weight = 60;
-    age = 20;
-    dailyCalorie = 1.182;
-    name = 'Diana Lung';
-    gender = 'woman';
+    const {user, logout, userName, userHeight, userWeight, userAge, userGender, userPhoto} = useContext(AuthContext);
+
+    const theBMI = bmiType(userHeight, userWeight);
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.userInfoSection}>
                 <View style={{flexDirection: 'row', marginTop: 15}}>
                     <Avatar.Image
-                        source={require('../assets/images/default-profile-pic.png')}
+                        source={{uri: userPhoto}}
                         size={80}
                     />
                     <View style={{marginLeft: 20}}>
                         <Title style={[styles.title, {
                             marginTop:15,
                             marginBottom: 5,
-                        }]}>{name}</Title>
+                        }]}>{userName}</Title>
                         <Caption style={styles.caption}>{user.email}</Caption>
                     </View>
                 </View>
@@ -45,19 +37,19 @@ const ProfileScreen = ({navigation}) => {
             <View style={styles.userInfoSection}>
                 <View style={styles.row}>
                     <Icon name="account-clock-outline" color="#777777" size={20}/>
-                    <Text style={{color:"#777777", marginLeft: 20}}>Age: {age}</Text>
+                    <Text style={{color:"#777777", marginLeft: 20}}>Age: {userAge}</Text>
                 </View>
                 <View style={styles.row}>
                     <Icon name="gender-male-female" color="#777777" size={20}/>
-                    <Text style={{color:"#777777", marginLeft: 20}}>Gender: {gender}</Text>
+                    <Text style={{color:"#777777", marginLeft: 20}}>Gender: {userGender}</Text>
                 </View>
                 <View style={styles.row}>
                     <Icon name="human-male-height" color="#777777" size={20}/>
-                    <Text style={{color:"#777777", marginLeft: 20}}>Height: {height} cm</Text>
+                    <Text style={{color:"#777777", marginLeft: 20}}>Height: {userHeight} cm</Text>
                 </View>
                 <View style={styles.row}>
                     <Icon name="weight-kilogram" color="#777777" size={20}/>
-                    <Text style={{color:"#777777", marginLeft: 20}}>Weight: {weight} kg</Text>
+                    <Text style={{color:"#777777", marginLeft: 20}}>Weight: {userWeight} kg</Text>
                 </View>
             </View>
 
@@ -67,29 +59,29 @@ const ProfileScreen = ({navigation}) => {
                     borderRightWidth: 1,
                 }]}>
                     <View style={styles.row2}>
-                        {bmiType(height, weight) === 'Normal weight'
+                        {theBMI === 'Normal weight'
                         && <Icon name="check-circle"
                                  color="#339900" size={20}
                                  style={styles.iconBMI}/>}
-                        {bmiType(height, weight) === 'Underweight'
+                        {theBMI === 'Underweight'
                         && <Icon
                             name="alert-circle"
                             color="#6497b1" size={20}
                             style={styles.iconBMI}/>}
-                        {bmiType(height, weight) === 'Overweight'
+                        {theBMI === 'Overweight'
                         && <Icon name="alert-circle"
                                  color="#ffcc00" size={20}
                                  style={styles.iconBMI}/>}
-                        {bmiType(height, weight) === 'Obesity'
+                        {theBMI === 'Obesity'
                         && <Icon name="alert-circle"
                                  color="#cc3300" size={20}
                                  style={styles.iconBMI}/>}
-                        <Title>{calculateBMI(height, weight)}</Title>
+                        <Title>{calculateBMI(userHeight, userWeight)}</Title>
                     </View>
                         <Caption>BMI</Caption>
                 </View>
                 <View style={styles.infoBox}>
-                    <Title>{calculateDailyCalories(age, gender, height, weight)}</Title>
+                    <Title>{calculateDailyCalories(userAge, userGender, userHeight, userWeight)}</Title>
                     <Caption>Daily Calories</Caption>
                 </View>
             </View>

@@ -22,14 +22,7 @@ import {calculateBMI, calculateDailyCalories} from "../utils/Formulas";
 
 export function DrawerContent(props) {
 
-    const {user, logout} = useContext(AuthContext);
-    let height, weight, age, dailyCalorie, name, gender;
-    height = 170;
-    weight = 60;
-    age = 20;
-    dailyCalorie = 1.182;
-    name = 'Diana Lung';
-    gender = 'woman';
+    const {user, logout, userName, userHeight, userWeight, userAge, userGender, userPhoto} = useContext(AuthContext);
 
 
     return(
@@ -39,11 +32,11 @@ export function DrawerContent(props) {
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row',marginTop: 15}}>
                             <Avatar.Image
-                                source={require('../assets/images/default-profile-pic.png')}
+                                source={{uri: userPhoto}}
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>{name}</Title>
+                                <Title style={styles.title}>{userName}</Title>
                                 <Caption style={styles.caption}>{user.email}</Caption>
                             </View>
                         </View>
@@ -51,11 +44,11 @@ export function DrawerContent(props) {
                         <View style={styles.row}>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}>BMI</Paragraph>
-                                <Caption style={styles.caption}> {calculateBMI(height, weight)}</Caption>
+                                <Caption style={styles.caption}> {calculateBMI(userHeight, userWeight)}</Caption>
                             </View>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}>Calories</Paragraph>
-                                <Caption style={styles.caption}> {calculateDailyCalories(age, gender, height, weight)}</Caption>
+                                <Caption style={styles.caption}> {calculateDailyCalories(userAge, userGender, userHeight, userWeight)}</Caption>
                             </View>
                         </View>
                     </View>
@@ -109,19 +102,19 @@ export function DrawerContent(props) {
                     <Drawer.Section title="Personal Data">
                         <View style={styles.row2}>
                             <Icon name="account-clock-outline" color='#f19422' size={20}/>
-                            <Text style={{color:"#777777", marginLeft: 20}}>Age: {age}</Text>
+                            <Text style={{color:"#777777", marginLeft: 20}}>Age: {userAge}</Text>
                         </View>
                         <View style={styles.row2}>
                             <Icon name="gender-male-female" color='#f19422' size={20}/>
-                            <Text style={{color:"#777777", marginLeft: 20}}>Gender: {gender}</Text>
+                            <Text style={{color:"#777777", marginLeft: 20}}>Gender: {userGender}</Text>
                         </View>
                         <View style={styles.row2}>
                             <Icon name="human-male-height" color='#f19422' size={20}/>
-                            <Text style={{color:"#777777", marginLeft: 20}}>Height: {height} cm</Text>
+                            <Text style={{color:"#777777", marginLeft: 20}}>Height: {userHeight} cm</Text>
                         </View>
                         <View style={styles.row2}>
                             <Icon name="weight-kilogram" color='#f19422' size={20}/>
-                            <Text style={{color:"#777777", marginLeft: 20}}>Weight: {weight} kg</Text>
+                            <Text style={{color:"#777777", marginLeft: 20}}>Weight: {userWeight} kg</Text>
                         </View>
                     </Drawer.Section>
                 </View>

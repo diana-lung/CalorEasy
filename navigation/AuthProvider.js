@@ -3,12 +3,33 @@ import auth from '@react-native-firebase/auth';
 import {Alert} from "react-native";
 import {GoogleSignin} from '@react-native-community/google-signin';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
-import firestore from '@react-native-firebase/firestore';
+import db from "../utils/DatabaseConfig";
+
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [userName, setUserName] = useState('');
+    const [userAge, setUserAge] = useState('');
+    const [userHeight, setUserHeight] = useState('');
+    const [userWeight, setUserWeight] = useState('');
+    const [userGender, setUserGender] = useState('');
+    const [userPhoto, setUserPhoto] = useState('');
+
+    function onResult(QuerySnapshot) {
+        setUserName(QuerySnapshot.data().name);
+        setUserName(QuerySnapshot.data().name);
+        setUserAge(QuerySnapshot.data().age);
+        setUserHeight(QuerySnapshot.data().height);
+        setUserWeight(QuerySnapshot.data().weight);
+        setUserGender(QuerySnapshot.data().gender);
+        setUserPhoto(QuerySnapshot.data().photoURL);
+    }
+
+    function onError(error) {
+        console.error("Error getting user:", error);
+    }
 
     return (
         <AuthContext.Provider
@@ -89,6 +110,28 @@ export const AuthProvider = ({children}) => {
                         console.log(e);
                     }
                 },
+                userName, setUserName,
+                userAge, setUserAge,
+                userHeight, setUserHeight,
+                userWeight, setUserWeight,
+                userGender, setUserGender,
+                userPhoto, setUserPhoto,
+                getUserData: async () => {
+                    await db.collection('users').doc(user.uid).onSnapshot(onResult, onError);
+                },
+                updateUserData: (userName, userHeight, userWeight, userAge, userGender) => {
+                    db.collection('users').doc(user.uid)
+                        .update({
+                            name: userName,
+                            age: userAge,
+                            height: userHeight,
+                            weight: userWeight,
+                            gender: userGender
+                        })
+                        .then(() => {
+                            console.log('User updated!');
+                        });
+                }
             }}>
             {children}
         </AuthContext.Provider>

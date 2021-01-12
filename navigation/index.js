@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Routes from "./Routes";
 import {AuthProvider} from "./AuthProvider";
-import {StatusBar, View} from "react-native";
+import {StatusBar} from "react-native";
 
 const Providers = () => {
     return (

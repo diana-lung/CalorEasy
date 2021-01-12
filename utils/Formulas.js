@@ -13,7 +13,7 @@ export const calculateDailyCalories = (age, gender, height, weight) => {
         return Math.round(BMR) - 500 ;
     } else
     {
-        let calculatedWeight = Math.round(913.397 * weight * 100)/100;
+        let calculatedWeight = Math.round(13.397 * weight * 100)/100;
         let calculatedHeight = Math.round(4.79 * height * 100)/100;
         let calculatedAge = Math.round(5.677 * age * 100)/100;
         const BMR = (calculatedWeight + calculatedHeight - calculatedAge + 88.362) * 1.2;
