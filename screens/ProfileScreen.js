@@ -5,6 +5,8 @@ import {hideNavigationBar} from "react-native-navigation-bar-color";
 import {Avatar, Title, Caption, Text, TouchableRipple} from "react-native-paper";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {bmiType, calculateBMI, calculateDailyCalories} from "../utils/Formulas";
+import database from '@react-native-firebase/database';
+
 
 
 const ProfileScreen = ({navigation}) => {
@@ -19,6 +21,28 @@ const ProfileScreen = ({navigation}) => {
     age = 20;
     name = 'Diana Lung';
     gender = 'woman';
+
+    const getUser = ({ userId }) => {
+        useEffect(() => {
+            const onValueChange = database()
+                .ref(`/users/${user.uid}`)
+                .on('value', snapshot => {
+                    console.log('User data: ', snapshot.val());
+                });
+
+            // Stop listening for updates when no longer required
+            return () =>
+                database()
+                    .ref(`/users/${user.uid}`)
+                    .off('value', onValueChange);
+        }, [userId]);
+    }
+
+    // database()
+    //     .ref('/users/NJ1mSgCuoZZdALVZBzXJaHB9f3z2')
+    //     .on('value', snapshot => {
+    //         console.log('User data: ', snapshot.val());
+    //     });
 
     return (
         <SafeAreaView style={styles.container}>
