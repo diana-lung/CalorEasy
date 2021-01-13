@@ -5,12 +5,11 @@ import {View} from 'react-native-animatable';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
-import SupportStack from "./SupportStack";
 import SettingsStack from "./SettingsStack";
 import FavouritesStack from "./FavouritesStack";
-import SupportScreen from "../screens/SupportScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import FavouritesScreen from "../screens/FavouritesScreen";
+import OnboardingScreen2 from "../screens/OnboardingScreen2";
 
 const AppStack = createStackNavigator();
 
@@ -80,7 +79,7 @@ const ProfileStack = ({navigation}) => {
                         </View>
                     ),
                 }}
-                component={SupportScreen}
+                component={OnboardingScreen2}
             />
             <AppStack.Screen
                 name="Settings"

@@ -2,7 +2,6 @@ import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import {View} from "react-native-animatable";
 import Icon from "react-native-vector-icons/Ionicons";
-import SupportScreen from "../screens/SupportScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 
 const AppStack = createStackNavigator();

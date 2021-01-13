@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Text, View, StyleSheet, StatusBar} from "react-native";
+import {Text, View, StyleSheet, StatusBar, Image} from "react-native";
 import {AuthContext} from "../navigation/AuthProvider";
 import {hideNavigationBar} from "react-native-navigation-bar-color";
 import SearchBar from "../components/SearchBar";
@@ -23,7 +23,8 @@ const HomeScreen = () => {
             <Text style={styles.title}>Hello, {cropName(userName)}.</Text>
             <Text style={styles.title}>What would you</Text>
             <Text style={styles.title}>like to eat?</Text>
-            <SearchBar></SearchBar>
+
+            <Image style={styles.img} source={require('../assets/images/home_img.png')} />
         </ScrollView>
     );
 }
@@ -44,4 +45,9 @@ const styles = StyleSheet.create({
         lineHeight: 35,
         letterSpacing: 2
     },
+    img: {
+        marginTop: 50,
+        width: 300,
+        height: 300
+    }
 });

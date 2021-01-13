@@ -16,6 +16,10 @@ export const AuthProvider = ({children}) => {
     const [userWeight, setUserWeight] = useState('');
     const [userGender, setUserGender] = useState('');
     const [userPhoto, setUserPhoto] = useState('');
+    const [currentRecipe, setCurrentRecipe] = useState(null);
+    const [userFavourites, setUserFavourites] = useState(null);
+    const [userPlan, setUserPlan] = useState(null);
+
 
     function onResult(QuerySnapshot) {
         setUserName(QuerySnapshot.data().name);
@@ -25,6 +29,8 @@ export const AuthProvider = ({children}) => {
         setUserWeight(QuerySnapshot.data().weight);
         setUserGender(QuerySnapshot.data().gender);
         setUserPhoto(QuerySnapshot.data().photoURL);
+        setUserFavourites(QuerySnapshot.data().favourites);
+        setUserPlan(QuerySnapshot.data().mealPlanner);
     }
 
     function onError(error) {
@@ -110,12 +116,15 @@ export const AuthProvider = ({children}) => {
                         console.log(e);
                     }
                 },
+                currentRecipe, setCurrentRecipe,
                 userName, setUserName,
                 userAge, setUserAge,
                 userHeight, setUserHeight,
                 userWeight, setUserWeight,
                 userGender, setUserGender,
                 userPhoto, setUserPhoto,
+                userFavourites, setUserFavourites,
+                userPlan, setUserPlan,
                 getUserData: async () => {
                     await db.collection('users').doc(user.uid).onSnapshot(onResult, onError);
                 },
@@ -130,6 +139,25 @@ export const AuthProvider = ({children}) => {
                         })
                         .then(() => {
                             console.log('User updated!');
+                        });
+                },
+
+                updateUserFavourites: (recipes) =>{
+                     db.collection('users').doc(user.uid)
+                         .update({
+                             favourites: recipes
+                         })
+                         .then(() => {
+                             console.log('Favourite recipes updated!');
+                         });
+                },
+                updateUserPlan: (recipes, type, day) =>{
+                    db.collection('users').doc(user.uid)
+                        .update({
+                            mealPlanner: recipes
+                        })
+                        .then(() => {
+                            console.log('Favourite recipes updated!');
                         });
                 }
             }}>
